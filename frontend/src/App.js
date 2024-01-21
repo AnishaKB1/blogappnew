@@ -1,0 +1,51 @@
+
+import './App.css';
+import Topbar from './Components/Topbar/Topbar';
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import Contact from './pages/Contact/Contact';
+import Write from './pages/Write/Write';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
+import Settings from './pages/settings/Settings';
+import Single from './pages/single/Single';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "./context/Context";
+
+
+function App() {
+  const { user } = useContext(Context);
+  return (
+    <>
+      <Router>
+        <Topbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Contact" element={<Contact />} />
+
+          <Route
+            path="/register"
+            element={user ? <Home /> : <Register />}
+          />
+          <Route
+            path="/login"
+            element={user ? <Home /> : <Login />}
+          />
+          <Route path="/post/:postId" element={<Single />} />
+          <Route
+            path="/write"
+            element={user ? <Write /> : <Register />}
+          />
+          <Route
+            path="/settings"
+            element={user ? <Settings /> : <Register />}
+          />
+        </Routes>
+      </Router>
+    </>
+  );
+}
+
+export default App;
